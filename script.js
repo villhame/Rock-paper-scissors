@@ -53,7 +53,7 @@ function playRound( Player, Computer) {
     let wCount = 0;
     let lCount = 0;
     let dCount = 0;
-    for (let i = 0; i < 5; i++) {
+    //for (let i = 0; i < 5; i++) {
         let roundResult = playRound(prompt(), getComputerChoice());
         console.log(roundResult);
         //draw counts
@@ -84,7 +84,7 @@ function playRound( Player, Computer) {
     if( dCount >= 3){
         return 'You draw!'
     }
- }
+ //}
 
  console.log(Game());
 
