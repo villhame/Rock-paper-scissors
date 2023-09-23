@@ -1,4 +1,17 @@
+//👊 ✋ ✌️ 🤖
 console.log("Hello World");
+
+//Win/ lose/ draw/ results
+let wCount = 0;
+let lCount = 0;
+let dCount = 0;
+let huhCount = 0;
+
+
+const playText = document.querySelector('.playText')
+const scoreText = document.querySelector('.scoreText')
+
+//playText.textContent = "I changed this"
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -10,85 +23,175 @@ function getComputerChoice() {
    console.log('Computer: ' + arr[x]);
    return arr[x];
 }
+function score(){
+    // let yourScore = 0;
+    // let roboScore = 0;
+    if(wCount < 4 && lCount < 4){
+        // yourScore += 1;
+        // roboScore += 1;
+        scoreText.textContent = `Your score: ${wCount} and 🤖 = ${lCount} `;
+    }
+    else{
+        scoreText.textContent = `Game Over! `;
+    }
+}
+
 
 function playRound( Player, Computer) {
-    Player = Player.toLowerCase();
+    //Player = Player.toLowerCase();
     console.log(Player);
     //draw conditions
     if( Player === 'rock' && Computer === 'rock') {
-        return 'It is a draw: Computer had rock as well.';
+        dCount += 1;
+        score();
+        return 'Draw: 🤖 had 👊 as well.' 
     }
     else if( Player === 'paper' && Computer === 'paper') {
-        return 'It is a draw: Computer had paper as well.';
+        dCount += 1;
+        score();
+        return 'Draw: 🤖 had ✋ as well.'  
     }
     else if( Player === 'scissors' && Computer === 'scissors') {
-        return 'It is a draw: Computer had scissors as well.';
+        dCount += 1;
+        score();
+        return 'Draw: 🤖 had ✌️ as well.' 
     }
     // win conditions
     else if( Player === 'rock' && Computer === 'scissors') {
-        return 'You win: Computer had scissors!';
+        wCount += 1;
+        score();
+        return 'You win! 🤖 had ✌️' 
     }
     else if( Player === 'paper' && Computer === 'rock') {
-        return 'You win: Computer had rock!';
+        wCount += 1;
+        score();
+        return 'You win! 🤖 had 👊' 
     }
     else if( Player === 'scissors' && Computer === 'paper') {
-        return 'You win: Computer had paper!';
+        wCount += 1;
+        score();
+        return 'You win! 🤖 had ✋' 
     }
     // lose conditions
     else if( Player === 'rock' && Computer === 'paper') {
-        return 'You lose: Computer had paper!';
+        lCount += 1;
+        score();
+        return 'You lose! 🤖 had ✋' 
     }
     else if( Player === 'paper' && Computer === 'scissors') {
-        return 'You lose: Computer had scissors!';
+        lCount += 1;
+        score();
+        return 'You lose! 🤖 had ✌️' 
     }
     else if( Player === 'scissors' && Computer === 'rock') {
-        return 'You lose: Computer had rock!';
+        lCount += 1;
+        score();
+        return 'You lose! 🤖 had 👊' 
     }
     else{
+        huhCount += 1;
+        score();
         return 'invalid input'
     }
- }
+}
 
- function Game() {
-    let wCount = 0;
-    let lCount = 0;
-    let dCount = 0;
-    for (let i = 0; i < 5; i++) {
-        let roundResult = playRound(prompt(), getComputerChoice());
-        console.log(roundResult);
-        //draw counts
-        if(roundResult === 'It is a draw: Computer had rock as well.' || roundResult === 'It is a draw: Computer had paper as well.' || roundResult === 'It is a draw: Computer had scissors as well.' ){
-            dCount += 1;
-            console.log('You draw this round');
-        }
-        //win counts
-        else if(roundResult === 'You win: Computer had scissors!' || roundResult === 'You win: Computer had rock!' || roundResult=== 'You win: Computer had paper!' ){
-            wCount += 1;
-            console.log('You win this round');
-        }
-        //lose counts
-        else if(roundResult === 'You lose: Computer had paper!' || roundResult === 'You lose: Computer had scissors!' || roundResult === 'You lose: Computer had rock!' ){
-            lCount += 1;
-            console.log('You lose this round');
-        }
-        else{
-            console.log('what happened');
-        }
-     }
+function gameOver() {
+    
+    //win conditions
     if( wCount >= 3){
-        return 'You win!'
+        console.log('You win!');
+        return "You won the game against 🤖!";;
     }
-    if( lCount >= 3){
-        return 'You lose!'
+
+    else if( lCount >= 3){
+        console.log('You lose!');
+        return "You lost the game!";
     }
-    if( dCount >= 3){
-        return 'You draw!'
+
+    // else if( dCount >= 3){
+    //     console.log('You Draw!');
+    //     return 'You Draw!';
+    // }
+    else{
+        return "yeet";
     }
- }
-
- console.log(Game());
-
-// const input = prompt();
+}
 
 
 
+function playOption(){    
+    let roundResult;
+
+    const btn = document.querySelector('.card');
+    btn.addEventListener('click', () => {
+    console.log("you cheeky bugger");
+
+
+    });  
+            //what happens when you click Rock
+            const Rock = document.querySelector('#Rock');
+            Rock.addEventListener('click', () => {
+                console.log('rock');
+                playText.textContent = "You picked rock" 
+                roundResult = playRound('rock', getComputerChoice());
+                playText.textContent = roundResult;
+                //think about adding delay
+                console.log("Current wCount/dCount/lCount: " + wCount + "/ " + dCount + "/ " + lCount );
+                //win conditions
+
+                if(wCount >= 3 || lCount >= 3 ){
+                    playText.textContent = gameOver();
+                }
+                return 'rock';
+            });
+
+            //what happens when you click Paper
+            const Paper = document.querySelector('#Paper');
+            Paper.addEventListener('click', () => {
+                console.log('paper');
+                playText.textContent = "You picked paper" 
+                roundResult = playRound('paper', getComputerChoice());
+                playText.textContent = roundResult;
+                console.log("Current wCount/dCount/lCount: " + wCount + "/ " + dCount + "/ " + lCount );
+                //playText.textContent = gameOver();
+                // if(wCount <= 3 || lCount <= 3 ){
+                //     scoreText.textContent = `Your score: ${wCount} and 🤖 = ${lCount} `;
+                // }
+                    //win conditions
+                if(wCount >= 3 || lCount >= 3 ){
+                    playText.textContent = gameOver();
+                }
+                return 'paper';
+            });
+
+            //what happens when you click Scissors
+            const Scissors = document.querySelector('#Scissors');
+            Scissors.addEventListener('click', () => { //function (e) {
+                console.log('scissors');
+                playText.textContent = "You picked scissors" 
+                roundResult = playRound('scissors', getComputerChoice());
+                playText.textContent = roundResult;
+                console.log("Current wCount/dCount/lCount: " + wCount + "/ " + dCount + "/ " + lCount );
+                    //win conditions
+                // if(wCount <= 3 || lCount <= 3 ){
+                //     scoreText.textContent = `Your score: ${wCount} and 🤖 = ${lCount} `;
+                // }
+                if(wCount >= 3 || lCount >= 3 ){
+                    playText.textContent = gameOver();
+                }
+                //playText.textContent = gameOver();
+                return 'scissors';
+            });    
+         
+}
+
+
+
+playOption();
+
+
+
+
+
+playText.append()
+scoreText.append()
